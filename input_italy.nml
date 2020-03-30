@@ -5,15 +5,15 @@
 /
 
 &PROBABILITY
-    QMIN = 0.008
-    QMAX = 0.016
-    THRESHOLD_CASES = 6000
+    QMIN = 0.009
+    QMAX = 0.018
+    THRESHOLD_CASES = 2000
 /
 
 &NETWORK
-    PMIN = 0.8
+    PMIN = 0.5
     PMAX = 2.0
-    N    = 1000
+    N    = 2000
 /
 
 &RECLUSION

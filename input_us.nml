@@ -5,18 +5,18 @@
 /
 
 &PROBABILITY
-    QMIN = 0.008
-    QMAX = 0.018
-    THRESHOLD_CASES = 10000
+    QMIN = 0.009
+    QMAX = 0.015
+    THRESHOLD_CASES = 70000
 /
 
 &NETWORK
-    PMIN = 0.5
+    PMIN = 1.0
     PMAX = 2.0
     N    = 2000
 /
 
 &RECLUSION
-    START_TIME = 12
+    START_TIME = 20
     END_TIME   = 121
 /
