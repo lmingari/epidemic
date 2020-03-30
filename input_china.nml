@@ -1,0 +1,22 @@
+&TIME
+    TA   = 7
+    TS   = 7
+    TMAX = 120
+/
+
+&PROBABILITY
+    QMIN = 0.001
+    QMAX = 0.016
+    THRESHOLD_CASES = 5000
+/
+
+&NETWORK
+    PMIN = 0.5
+    PMAX = 2.0
+    N    = 1000
+/
+
+&RECLUSION
+    START_TIME = 15
+    END_TIME   = 120
+/
