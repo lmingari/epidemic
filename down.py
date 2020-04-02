@@ -32,17 +32,21 @@ for item in items:
         df['dr'] = df['r'].diff()
         i0=(df['r']-threshold_new).abs().argsort()[0]
         df['time'] -= i0
-        df.plot(x='time',y='r',  logy=True, label=labels[output], ax=axes[0])
-        df.plot(x='time',y='dr', logy=True, label=labels[output], ax=axes[1])
-    data[data.days>0].plot(x="days", y=item,     style=".", alpha=0.75, logy=True, label=item, ax=axes[0])
-    data[data.days>0].plot(x="days", y="ncases", style=".", alpha=0.75, logy=True, label=item, ax=axes[1])
+        df.plot(x='time',y='r', label=labels[output], ax=axes[0])
+        df.plot(x='time',y='dr',label=labels[output], ax=axes[1])
+    data[data.days>0].plot(x="days", y=item,     style=".", alpha=0.75, label=item, ax=axes[0])
+    data[data.days>0].plot(x="days", y="ncases", style=".", alpha=0.75, label=item, ax=axes[1])
 
+axes[0].set_yscale('log')
+axes[1].set_yscale('log')
 axes[0].set_ylabel("Total cases")
 axes[1].set_ylabel("Daily new cases")
 axes[0].set_xlabel("")
 axes[1].set_xlabel(t0.strftime("Days after %Y-%m-%d"))
 axes[0].legend(loc=4)
 axes[1].legend().set_visible(False)
+axes[0].grid()
+axes[1].grid()
 
 plt.savefig(fname, dpi=160)
-#plt.show()
+plt.show()
