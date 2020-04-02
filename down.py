@@ -4,6 +4,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from os.path import join
 
+plt.rcParams.update({'font.size': 8})
+
 threshold = 100
 fig, axes = plt.subplots(2,1)
 
@@ -11,8 +13,14 @@ url="https://raw.githubusercontent.com/datasets/covid-19/master/data/key-countri
 data = pd.read_csv(url,parse_dates=[0])
 print(data)
 
-items = ['Spain']
+labels = {'free.dat':    "free evolution",
+          'qmin.dat':    "self-protective behavior",
+          'control.dat': "isolation",
+          }
+
+items = ['Italy']
 for item in items: 
+    fname = join(item,"plot.png")
     t0 = data.loc[data[item]>=threshold].Date.iloc[0]
     data.loc[:,"days"]   = (data.Date-t0).dt.days
     data.loc[:,"ncases"] =  data[item].diff() / data["days"].diff()
@@ -24,12 +32,15 @@ for item in items:
         df['dr'] = df['r'].diff()
         i0=(df['r']-threshold_new).abs().argsort()[0]
         df['time'] -= i0
-        df.plot(x='time',y='r',  logy=True, label=output, ax=axes[0])
-        df.plot(x='time',y='dr', logy=True, label=output, ax=axes[1])
-    data.plot(x="days", y=item,     style=".", logy=True, label=item, ax=axes[0])
-    data.plot(x="days", y="ncases", style=".", logy=True, label=item, ax=axes[1])
+        df.plot(x='time',y='r',  logy=True, label=labels[output], ax=axes[0])
+        df.plot(x='time',y='dr', logy=True, label=labels[output], ax=axes[1])
+    data[data.days>0].plot(x="days", y=item,     style=".", logy=True, label=item, ax=axes[0])
+    data[data.days>0].plot(x="days", y="ncases", style=".", logy=True, label=item, ax=axes[1])
 
 axes[0].set_xlabel("")
 axes[1].set_xlabel(t0.strftime("Days after %Y-%m-%d"))
+axes[0].legend(loc=4)
+axes[1].legend().set_visible(False)
 
-plt.show()
+plt.savefig(fname, dpi=160)
+#plt.show()

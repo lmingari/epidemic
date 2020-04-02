@@ -1,7 +1,13 @@
 SHELL = /bin/sh
 
 FC = gfortran
-FFLAGS = -fopenmp #-O3 #-Wall
+
+ifeq ($(FC), gfortran)
+    FFLAGS = -fopenmp -O2
+else
+    FFLAGS = -qopenmp
+endif
+
 NETCDF = /usr
 INC = -I$(NETCDF)/include
 LDFLAGS = -L$(NETCDF)/lib -lnetcdf -lnetcdff
