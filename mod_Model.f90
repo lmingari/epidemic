@@ -183,22 +183,21 @@ MODULE Model
     subroutine model_add_shortcuts(p)
         implicit none
         !
-        real(rp), intent(in) :: p
-        real(rp) :: r1, r2
+        real(rp), intent(in)   :: p
+        real(rp), dimension(2) :: r
         !
         integer(ip) :: L,N
         integer(ip) :: i1,i2,nn1,nn2,i_add
         !
         N = MY_MODEL%net%N
-        L = nint(4*p*N**2,ip)
+        L = nint(0.5_rp*p*N**2,ip)
         !
         i_add = L
         !
         do
-            call random_number(r1)
-            call random_number(r2)
-            i1  = int(N**2*r1,ip)+1
-            i2  = int(N**2*r2,ip)+1
+            call random_number(r)
+            i1  = int(N**2*r(1),ip)+1
+            i2  = int(N**2*r(2),ip)+1
             if(i1.eq.i2) cycle
             nn1 = MY_MODEL%net%nn(i1)
             if(ANY(MY_MODEL%net%con(i1,1:nn1).eq.i2)) cycle
@@ -212,6 +211,7 @@ MODULE Model
             if(i_add.eq.0) exit
         end do
         !
+        write(*,*) "Average neighbours: ", (1.0_rp*SUM(MY_MODEL%net%nn))/N**2
         if( MAXVAL(MY_MODEL%net%nn)>MAX_NN) then
             write(*,*) "Maximum number of neighbours exceeded. Decrease p"
             STOP 1
