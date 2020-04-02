@@ -18,7 +18,7 @@ labels = {'free.dat':    "free evolution",
           'control.dat': "isolation",
           }
 
-items = ['Spain']
+items = ['Italy']
 for item in items: 
     fname = join(item,"plot.png")
     t0 = data.loc[data[item]>=threshold].Date.iloc[0]
@@ -34,8 +34,8 @@ for item in items:
         df['time'] -= i0
         df.plot(x='time',y='r',  logy=True, label=labels[output], ax=axes[0])
         df.plot(x='time',y='dr', logy=True, label=labels[output], ax=axes[1])
-    data[data.days>0].plot(x="days", y=item,     style=".", logy=True, label=item, ax=axes[0])
-    data[data.days>0].plot(x="days", y="ncases", style=".", logy=True, label=item, ax=axes[1])
+    data[data.days>0].plot(x="days", y=item,     style=".", alpha=0.75, logy=True, label=item, ax=axes[0])
+    data[data.days>0].plot(x="days", y="ncases", style=".", alpha=0.75, logy=True, label=item, ax=axes[1])
 
 axes[0].set_ylabel("Total cases")
 axes[1].set_ylabel("Daily new cases")
